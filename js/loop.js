@@ -1,6 +1,7 @@
 var Loop = function() {
 
-    var status = '',
+    var instance = this,
+        status = '',
         time = 0.0,
         deltaTime = 0.01;
 
@@ -43,32 +44,43 @@ var Loop = function() {
      * Start Game
      */
     this.start = function(){
-        currentTime = getCurrentTime();
-        status = STATUS.RUNNING;
-        loop();
+        if(status == STATUS.STOPPED){
+            console.log('start');
+            currentTime = getCurrentTime();
+            status = STATUS.RUNNING;
+            loop();
+        }
     }
 
     /**
      * Pause Game
      */
     this.pause = function(){
-        status = STATUS.PAUSED;
+        if(status == STATUS.RUNNING){
+            console.log('pause');
+            status = STATUS.PAUSED;
+        }
     }
 
     /**
      * Stop Game
      */
     this.stop = function(){
-        status = STATUS.STOPPED;
-        loop();
+        if(status != STATUS.STOPPED){
+            console.log('stop');
+            status = STATUS.STOPPED;
+        }
     }
 
     /**
      * Resume Paused Game
      */
     this.resume = function(){
-        status = STATUS.RUNNING;
-        loop();
+        if(status == STATUS.PAUSED){
+            console.log('resume');
+            status = STATUS.RUNNING;
+            loop();
+        }
     }
 
     /**
@@ -79,8 +91,6 @@ var Loop = function() {
             var newTime = getCurrentTime();
             var frameTime = newTime - currentTime;
 
-            console.log(frameTime);
-
             if(frameTime > 0.25){
                 frameTime = 0.25;
             }
@@ -89,7 +99,7 @@ var Loop = function() {
             accumulator += frameTime;
 
             while(accumulator >= deltaTime){
-                console.log('update');
+                //console.log('update');
                 //state.update(deltaTime);
                 time += deltaTime;
                 accumulator -= deltaTime;
@@ -112,7 +122,7 @@ var Loop = function() {
      * Render current State with provided renderer
      */
     var render = function(){
-        console.log('render');
+        //console.log('render');
         if(renderer != null && state != null){
             renderer.render(state);
         }
