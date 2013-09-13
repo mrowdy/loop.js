@@ -4,7 +4,6 @@ var renderer = new CircleRender();
 loop.setState(state);
 loop.setRenderer(renderer);
 
-
 var $status = document.querySelector('#status');
 var $stop = document.querySelector('#stop');
 var $resume = document.querySelector('#resume');
@@ -12,6 +11,12 @@ var $pause = document.querySelector('#pause');
 var $start = document.querySelector('#start');
 var $range =  document.querySelector('#deltaTime');
 var $deltaTimeValue =  document.querySelector('#deltaTimeValue');
+var $fps = document.querySelector('#fps');
+
+loop.setFPSCallback(function(fps){
+    fps = fps.toFixed(2);
+    $fps.innerHTML = fps;
+});
 
 
 $start.onclick = function(){

@@ -6,6 +6,9 @@ var Loop = function() {
         deltaTime = 0.01,
         maxFrameTime = 0.25;
 
+    var fps = 0,
+        fpsCallback;
+
     var currentTime = 0.0,
         accumulator = 0.0;
 
@@ -95,6 +98,12 @@ var Loop = function() {
         }
     }
 
+    this.setFPSCallback = function(callback){
+        if(callback){
+            fpsCallback = callback;
+        }
+    }
+
     /**
      * Set new DeltaTime for timesteps
      * @param newDeltaTime
@@ -110,6 +119,11 @@ var Loop = function() {
         if(status == STATUS.RUNNING){
             var newTime = getCurrentTime();
             var frameTime = newTime - currentTime;
+
+            fps = (1 / frameTime) * 1000;
+            if(fpsCallback){
+                fpsCallback(fps);
+            }
 
             if(frameTime > maxFrameTime){
                 frameTime = maxFrameTime;
