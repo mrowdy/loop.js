@@ -44,11 +44,13 @@ var Loop = function() {
     /**
      * Start Game
      */
-    this.start = function(){
+    this.start = function(callback){
         if(status == STATUS.STOPPED){
-            console.log('start');
             currentTime = getCurrentTime();
             status = STATUS.RUNNING;
+            if(callback){
+                callback();
+            }
             loop();
         }
     }
@@ -56,30 +58,36 @@ var Loop = function() {
     /**
      * Pause Game
      */
-    this.pause = function(){
+    this.pause = function(callback){
         if(status == STATUS.RUNNING){
-            console.log('pause');
             status = STATUS.PAUSED;
+            if(callback){
+                callback();
+            }
         }
     }
 
     /**
      * Stop Game
      */
-    this.stop = function(){
+    this.stop = function(callback){
         if(status != STATUS.STOPPED){
-            console.log('stop');
             status = STATUS.STOPPED;
+            if(callback){
+                callback();
+            }
         }
     }
 
     /**
      * Resume Paused Game
      */
-    this.resume = function(){
+    this.resume = function(callback){
         if(status == STATUS.PAUSED){
-            console.log('resume');
             status = STATUS.RUNNING;
+            if(callback){
+                callback();
+            }
             loop();
         }
     }
