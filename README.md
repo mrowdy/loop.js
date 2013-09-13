@@ -1,4 +1,4 @@
 loop.js
 =======
 
-semi fixed game loop
+crossbrowser semi fixed game loop
