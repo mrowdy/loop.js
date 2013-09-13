@@ -3,7 +3,8 @@ var Loop = function() {
     var instance = this,
         status = '',
         time = 0.0,
-        deltaTime = 0.01;
+        deltaTime = 0.01,
+        maxFrameTime = 0.25;
 
     var currentTime = 0.0,
         accumulator = 0.0;
@@ -91,8 +92,8 @@ var Loop = function() {
             var newTime = getCurrentTime();
             var frameTime = newTime - currentTime;
 
-            if(frameTime > 0.25){
-                frameTime = 0.25;
+            if(frameTime > maxFrameTime){
+                frameTime = maxFrameTime;
             }
 
             currentTime = newTime;
@@ -122,7 +123,6 @@ var Loop = function() {
      * Render current State with provided renderer
      */
     var render = function(){
-        //console.log('render');
         if(renderer != null && state != null){
             renderer.render(state);
         }
