@@ -1,3 +1,29 @@
 body, html {
     margin: 0;
 }
+
+#example {
+    margin: 50px;
+}
+
+#circle {
+    width: 200px;
+    height: 200px;
+    -webkit-backface-visibility: hidden;
+}
+
+#circle .left {
+    width: 100px;
+    height: 200px;
+    float: left;
+    background: green;
+    border-radius: 100px 0 0 100px;
+}
+
+#circle .right {
+    width: 100px;
+    height: 200px;
+    float: right;
+    background: red;
+    border-radius: 0 100px 100px 0;
+}

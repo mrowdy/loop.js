@@ -28,7 +28,7 @@ var Loop = function() {
      * State needs update method
      * @param newState
      */
-    var setState = function(newState){
+    this.setState = function(newState){
         state = newState;
     }
 
@@ -37,7 +37,7 @@ var Loop = function() {
      * Renderer needs render method
      * @param newRenderer
      */
-    var setRenderer = function(newRenderer){
+    this.setRenderer = function(newRenderer){
         renderer = newRenderer;
     }
 
@@ -48,6 +48,9 @@ var Loop = function() {
         if(status == STATUS.STOPPED){
             currentTime = getCurrentTime();
             status = STATUS.RUNNING;
+            if(state){
+                state.init();
+            }
             if(callback){
                 callback();
             }
@@ -109,7 +112,9 @@ var Loop = function() {
 
             while(accumulator >= deltaTime){
                 //console.log('update');
-                //state.update(deltaTime);
+                if(state){
+                    state.update(deltaTime);
+                }
                 time += deltaTime;
                 accumulator -= deltaTime;
             }
@@ -132,7 +137,7 @@ var Loop = function() {
      */
     var render = function(){
         if(renderer != null && state != null){
-            renderer.render(state);
+            renderer.draw(state);
         }
     }
 
