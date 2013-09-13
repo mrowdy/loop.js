@@ -96,6 +96,14 @@ var Loop = function() {
     }
 
     /**
+     * Set new DeltaTime for timesteps
+     * @param newDeltaTime
+     */
+    this.setDeltaTime = function(newDeltaTime){
+        deltaTime = newDeltaTime;
+    }
+
+    /**
      * The Loop
      */
     var loop = function(){

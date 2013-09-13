@@ -10,6 +10,7 @@ var $stop = document.querySelector('#stop');
 var $resume = document.querySelector('#resume');
 var $pause = document.querySelector('#pause');
 var $start = document.querySelector('#start');
+var $range =  document.querySelector('#deltaTime');
 
 
 $start.onclick = function(){
@@ -34,6 +35,11 @@ $stop.onclick = function(){
     loop.stop(function(){
         appendStatus('stopped');
     });
+}
+
+$range.onchange = function(){
+    var deltaTime = $range.value / 100;
+    loop.setDeltaTime(deltaTime);
 }
 
 function appendStatus(status){
