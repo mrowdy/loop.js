@@ -11,6 +11,7 @@ var $resume = document.querySelector('#resume');
 var $pause = document.querySelector('#pause');
 var $start = document.querySelector('#start');
 var $range =  document.querySelector('#deltaTime');
+var $deltaTimeValue =  document.querySelector('#deltaTimeValue');
 
 
 $start.onclick = function(){
@@ -38,8 +39,9 @@ $stop.onclick = function(){
 }
 
 $range.onchange = function(){
-    var deltaTime = $range.value / 100;
-    loop.setDeltaTime(deltaTime);
+    var deltaTime = $range.value;
+    $deltaTimeValue.innerHTML = deltaTime / 10+ 'ms';
+    loop.setDeltaTime(deltaTime / 1000);
 }
 
 function appendStatus(status){
