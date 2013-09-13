@@ -1,3 +1,14 @@
+if(!window.requestAnimationFrame){
+    window.requestAnimationFrame = (function(){
+        return  window.requestAnimationFrame   ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+}
+
 var Loop = function() {
 
     var instance = this,
@@ -142,7 +153,7 @@ var Loop = function() {
             }
 
             render();
-            requestAnimationFrame(loop);
+            window.requestAnimationFrame(loop);
         }
     }
 
@@ -165,12 +176,3 @@ var Loop = function() {
 
     init();
 }
-
-window.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame   ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame    ||
-        function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-        };
-})();
