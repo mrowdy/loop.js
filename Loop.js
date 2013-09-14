@@ -33,7 +33,6 @@ var Loop = function() {
     }
 
     var init = function(){
-        console.log('init loop');
         status = STATUS.STOPPED;
     }
 
@@ -144,7 +143,6 @@ var Loop = function() {
             accumulator += frameTime;
 
             while(accumulator >= deltaTime){
-                //console.log('update');
                 if(state){
                     state.update(deltaTime);
                 }
