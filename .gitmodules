@@ -1,0 +1,3 @@
+[submodule "Loop"]
+	path = Loop
+	url = https://github.com/Slemgrim/loop.js/
