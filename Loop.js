@@ -9,22 +9,23 @@ if(!window.requestAnimationFrame){
     })();
 }
 
-var Loop = function() {
+var Loop = function(options) {
 
-    var instance = this,
-        status = '',
+    var defaultOptions = {
+        deltaTime: 0.01,
+        maxFrameTime: 0.25,
+        fpsCallback: false
+    }
+
+    var status = '',
         time = 0.0,
-        deltaTime = 0.01,
-        maxFrameTime = 0.25;
+        fps = 0,
 
-    var fps = 0,
-        fpsCallback;
+        currentTime = 0.0,
+        accumulator = 0.0,
 
-    var currentTime = 0.0,
-        accumulator = 0.0;
-
-    var state = null;
-    var renderer = null;
+        state = null,
+        renderer = null;
 
     var STATUS = {
         RUNNING : 0,
@@ -33,6 +34,17 @@ var Loop = function() {
     }
 
     var init = function(){
+        if (typeof options == 'object') {
+            for (var property in defaultOptions) {
+                if(!options[property]){
+                    options[property] = defaultOptions[property];
+                }
+            }
+        } else {
+            options = defaultOptions;
+        }
+
+        console.log(options);
         status = STATUS.STOPPED;
     }
 
@@ -110,7 +122,7 @@ var Loop = function() {
 
     this.setFPSCallback = function(callback){
         if(callback){
-            fpsCallback = callback;
+            options.fpsCallback = callback;
         }
     }
 
@@ -119,7 +131,7 @@ var Loop = function() {
      * @param newDeltaTime
      */
     this.setDeltaTime = function(newDeltaTime){
-        deltaTime = newDeltaTime;
+        options.deltaTime = newDeltaTime;
     }
 
     /**
@@ -131,23 +143,23 @@ var Loop = function() {
             var frameTime = newTime - currentTime;
 
             fps = (1 / frameTime) * 1000;
-            if(fpsCallback){
-                fpsCallback(fps);
+            if(options.fpsCallback){
+                options.fpsCallback(fps);
             }
 
-            if(frameTime > maxFrameTime){
-                frameTime = maxFrameTime;
+            if(frameTime > options.maxFrameTime){
+                frameTime = options.maxFrameTime;
             }
 
             currentTime = newTime;
             accumulator += frameTime;
 
-            while(accumulator >= deltaTime){
+            while(accumulator >= options.deltaTime){
                 if(state){
-                    state.update(deltaTime);
+                    state.update(options.deltaTime);
                 }
-                time += deltaTime;
-                accumulator -= deltaTime;
+                time += options.deltaTime;
+                accumulator -= options.deltaTime;
             }
 
             render();
