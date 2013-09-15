@@ -1,10 +1,8 @@
-var Renderer = function() {
+var Renderer = function(canvas) {
 
-    var canvas,
-        context;
+    var context;
 
     var init = function(){
-        canvas = document.querySelector('#game canvas');
         context = canvas.getContext('2d');
         clear();
     }

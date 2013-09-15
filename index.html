@@ -32,17 +32,36 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
 
-          <h2>Example with Canvas 2D and external controls</h2>
-          <div id="game">
-              <div class="meta">
-                  Fps: <span id="fps">0</span>
+          <div id="example1">
+              <h2>Example with Canvas 2D and external controls</h2>
+              <div class="game">
+                  <div class="meta">
+                      Fps: <span class="fps">0</span>
+                  </div>
+                  <canvas width="320" height="240"></canvas>
+                  <div class="controls">
+                      <button class="start">Start</button>
+                      <button class="inactive pause">Pause</button>
+                      <button class="inactive resume">Resume</button>
+                      <button class="inactive stop">Stop</button><br>
+                  </div>
               </div>
-              <canvas width="320" height="240"></canvas>
-              <div class="controls">
-                  <button id="start">Start</button>
-                  <button class="inactive" id="pause">Pause</button>
-                  <button class="inactive" id="resume">Resume</button>
-                  <button class="inactive" id="stop">Stop</button><br>
+          </div>
+
+          <div id="example2">
+              <h2>Example with Canvas 2D and Controlls</h2>
+              <p>Use W,A,S,D keys to controll ball</p>
+              <div class="game">
+                  <div class="meta">
+                      Fps: <span class="fps">0</span>
+                  </div>
+                  <canvas width="320" height="240"></canvas>
+                  <div class="controls">
+                      <button class="start">Start</button>
+                      <button class="inactive pause">Pause</button>
+                      <button class="inactive resume">Resume</button>
+                      <button class="inactive stop">Stop</button><br>
+                  </div>
               </div>
           </div>
 
@@ -58,9 +77,20 @@
     </div>
 
     <script type="text/javascript" src="Loop/Loop.js"></script>
-    <script type="text/javascript" src="javascripts/world.js"></script>
-    <script type="text/javascript" src="javascripts/circle.js"></script>
-    <script type="text/javascript" src="javascripts/renderer.js"></script>
-    <script type="text/javascript" src="javascripts/main.js"></script>
+
+    <!-- example 2 -->
+    <script type="text/javascript" src="javascripts/example1/world.js"></script>
+    <script type="text/javascript" src="javascripts/example1/circle.js"></script>
+    <script type="text/javascript" src="javascripts/example1/renderer.js"></script>
+    <script type="text/javascript" src="javascripts/example1/main.js"></script>
+
+    <!-- example 2 -->
+    <script type="text/javascript" src="javascripts/example2/event.js"></script>
+    <script type="text/javascript" src="javascripts/example2/world.js"></script>
+    <script type="text/javascript" src="javascripts/example2/circle.js"></script>
+    <script type="text/javascript" src="javascripts/example2/renderer.js"></script>
+    <script type="text/javascript" src="javascripts/example2/controller.js"></script>
+    <script type="text/javascript" src="javascripts/example2/input-handler.js"></script>
+    <script type="text/javascript" src="javascripts/example2/main.js"></script>
   </body>
 </html>

@@ -1,31 +1,31 @@
-#game {
+.game {
     background-color: #212121;
     color: #fff;
     margin: 30px 0;
 }
 
-#game canvas {
+.game canvas {
     margin: auto;
     display: block;
 }
 
-#game .meta{
+.game .meta{
     padding: 10px;
     border-bottom: 1px solid #fff;
 }
 
-#game .controls{
+.game .controls{
     padding: 10px;
     border-top: 1px solid #fff;
 }
 
-#game .controls button {
+.game .controls button {
     background: #fff;
     border: none;
     color: #212121;
     padding: 5px 10px;
 }
 
-#game .controls button.inactive {
+.game .controls button.inactive {
     background-color: #aaa;
 }
