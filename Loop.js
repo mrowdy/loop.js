@@ -171,7 +171,7 @@ var Loop = function(options) {
                     input = controller.getInput(options.deltaTime);
                 }
 
-                if(state){
+                if(state  && typeof state.update === 'function'){
                     state.update(options.deltaTime, input);
                 }
                 time += options.deltaTime;
