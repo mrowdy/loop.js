@@ -21,7 +21,7 @@ var loop = new Loop();
 loop.start();
 
 //Stop game
-loop.start();
+loop.stop();
 ```
 
 Options
@@ -34,3 +34,15 @@ Options
 | fpsCallback  | false   | Will be called every game update with the current fps rate           | Callback |
 
 
+Methods
+------------------------
+| Name           | Description                 | Params                                                  |
+| start          | Starts gameloop.            | [ startCallback ] ( called on success )                 |
+| stop           | Stops started gameloop.     | [ stopCallback ] ( called on success )                  |
+| pause          | Pauses started gameloop.    | [ pauseCallback ] ( called on success )                 |
+| resume         | Resumes paused gameloop.    | [ resumeCallback ] ( called on success )                |
+| setState       | Set Game State (Screen)     | object state (needs 'init' and 'update' method)         |
+| setRenderer    | Set Renderer                | object rendderer (needs 'draw' method)                  |
+| setController  | Se Controller for inputs    | object controller (needs 'getInput' method)             |
+| setDeltaTime   | same as deltaTime option    | float deltaTime                                         |
+| setFPSCallback | Set Callback for fps update | fpsCallback (called every game update with current fps) |
