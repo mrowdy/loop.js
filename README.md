@@ -7,4 +7,17 @@ loop.js separates game logic from render stuff and operates on an semi-fixed tim
 
 Demo: http://slemgrim.github.io/loop.js/
 
+Usage
+------------------------
+
+```javascript
+ var options = {
+    //your options
+ };
+
+ var loop = new Loop();
+ loop.start();
+```
+
+
 
