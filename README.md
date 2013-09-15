@@ -27,23 +27,89 @@ loop.stop();
 Options
 ------------------------
 
-| Name         | Default | Description                                                          | Type     |
-| ------------ | ------- | -------------------------------------------------------------------- | -------- |
-| deltaTime    | 0.01    | Game update interval in seconds (fast games need a slow value)       | float    |
-| maxFrameTime | 0.25    | Maximum game updates per frame in seconds to prevent spiral of death | float    |
-| fpsCallback  | false   | Will be called every game update with the current fps rate           | Callback |
+| Name         | Default     | Description                                                          | Type       |
+| ------------ | ----------- | -------------------------------------------------------------------- | ---------- |
+| deltaTime    | **0.01**    | Game update interval in seconds (fast games need a slow value)       | `float`    |
+| maxFrameTime | **0.25**    | Maximum game updates per frame in seconds to prevent spiral of death | `float`    |
+| fpsCallback  | **false**   | Will be called every game update with the current fps rate           | `callback` |
 
 
 Methods
 ------------------------
-| Name           | Description                 | Params                                                  |
-| -------------- | --------------------------- | ------------------------------------------------------- |
-| start          | Starts gameloop.            | [ startCallback ] ( called on success )                 |
-| stop           | Stops started gameloop.     | [ stopCallback ] ( called on success )                  |
-| pause          | Pauses started gameloop.    | [ pauseCallback ] ( called on success )                 |
-| resume         | Resumes paused gameloop.    | [ resumeCallback ] ( called on success )                |
-| setState       | Set Game State (Screen)     | object state (needs 'init' and 'update' method)         |
-| setRenderer    | Set Renderer                | object rendderer (needs 'draw' method)                  |
-| setController  | Se Controller for inputs    | object controller (needs 'getInput' method)             |
-| setDeltaTime   | same as deltaTime option    | float deltaTime                                         |
-| setFPSCallback | Set Callback for fps update | fpsCallback (called every game update with current fps) |
+| Name           | Description                 | Params                                                    |
+| -------------- | --------------------------- | --------------------------------------------------------- |
+| start          | Starts gameloop.            | \[ `callback` **startCallback** \] called on success      |
+| stop           | Stops started gameloop.     | \[ `callback` **stopCallback** \] called on success       |
+| pause          | Pauses started gameloop.    | \[ `callback` **pauseCallback** \] called on success      |
+| resume         | Resumes paused gameloop.    | \[ `callback` **resumeCallback** \] called on success     |
+| setState       | Set Game State (Screen)     | `object` **state** needs 'init' and 'update' method       |
+| setRenderer    | Set Renderer                | `object` **rendderer** needs 'draw' method                |
+| setController  | Se Controller for inputs    | `object` **controller** needs 'getInput' method           |
+| setDeltaTime   | same as deltaTime option    | `float` **deltaTime**                                     |
+| setFPSCallback | same as fpsCallback  option | `callback` **fpsCallback**                                |
+
+Basic Usage Example
+------------------------
+
+```javascript
+
+   // World object as state. Here is the game logic
+   // Examples: world, gameScreen, menuScreen, settingsScreen, etc.
+   var World = function(){
+        this.init = function(){
+            //called on loop.start()
+            //used to reset state
+        }
+
+        this.update = function(deltaTime){
+            // called every game update
+            // receives deltaTime
+        }
+   }
+
+   // Rendering is completely freed from game logic.
+   // Examples: render2D, render3D, renderHTML, renderWebGl, etc.
+   var Render2D = function(){
+        this.draw = function(state) {
+            // called every frame, use to draw your game
+            // receives actual state as param
+        }
+   }
+
+   // Input handling is completely freed from game logic
+   // Examples: mouseController, touchController, keyboardController, gamepadController
+   var MouseControl = function(){
+        this.getInput(deltaTime){
+            // called every game update. use for input handling
+            // receives deltaTime
+        }
+   }
+
+   // Create loop instance with options
+   var game = new Loop({
+        deltaTime: 0.05
+   });
+
+   var world = new World();
+   var render2D = new Render2D();
+   var mControl = new MouseControl();
+
+   // add your modules to the loop instance
+   game.setState(world);
+   game.setRenderer(render2D);
+   game.setController(mControl);
+
+   // log your fps to console
+   loop.setFPSCallback(
+        function(fps){
+            console.log(fps);
+        }
+   );
+
+   // start loop.
+   loop.start();
+
+
+```
+
+
