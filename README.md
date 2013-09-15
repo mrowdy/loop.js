@@ -37,6 +37,7 @@ Options
 Methods
 ------------------------
 | Name           | Description                 | Params                                                  |
+| -------------- | --------------------------- | ------------------------------------------------------- |
 | start          | Starts gameloop.            | [ startCallback ] ( called on success )                 |
 | stop           | Stops started gameloop.     | [ stopCallback ] ( called on success )                  |
 | pause          | Pauses started gameloop.    | [ pauseCallback ] ( called on success )                 |
