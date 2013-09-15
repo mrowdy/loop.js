@@ -27,6 +27,8 @@ var Loop = function(options) {
         state = null,
         renderer = null;
 
+    var controller = null;
+
     var STATUS = {
         RUNNING : 0,
         PAUSED : 1,
@@ -44,7 +46,6 @@ var Loop = function(options) {
             options = defaultOptions;
         }
 
-        console.log(options);
         status = STATUS.STOPPED;
     }
 
@@ -134,6 +135,16 @@ var Loop = function(options) {
         options.deltaTime = newDeltaTime;
     }
 
+
+    /**
+     * Set Controller
+     * controller needs "getInput" method;
+     * @param newController
+     */
+    this.setController = function(newController){
+        controller = newController;
+    }
+
     /**
      * The Loop
      */
@@ -155,8 +166,13 @@ var Loop = function(options) {
             accumulator += frameTime;
 
             while(accumulator >= options.deltaTime){
+                var input;
+                if(controller && typeof controller.getInput === 'function'){
+                    input = controller.getInput(options.deltaTime);
+                }
+
                 if(state){
-                    state.update(options.deltaTime);
+                    state.update(options.deltaTime, input);
                 }
                 time += options.deltaTime;
                 accumulator -= options.deltaTime;
