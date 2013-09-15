@@ -195,7 +195,10 @@ var Loop = function(options) {
      * Render current State with provided renderer
      */
     var render = function(){
-        if(renderer != null && state != null){
+        if(renderer != null
+            && typeof renderer.draw === 'function'
+            && state != null
+        ){
             renderer.draw(state);
         }
     }
