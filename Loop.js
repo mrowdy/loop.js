@@ -1,33 +1,19 @@
-if(!window.requestAnimationFrame){
-    window.requestAnimationFrame = (function(){
-        return  window.requestAnimationFrame   ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-            };
-    })();
-}
-
 var Loop = function(options) {
 
     var defaultOptions = {
         deltaTime: 0.01,
         maxFrameTime: 0.25,
-        fpsCallback: false
+        fpsCallback: false,
+        renderCallback: false,
+        updateCallback: false,
+        clock: false
     }
 
     var status = '',
         time = 0.0,
         fps = 0,
-
         currentTime = 0.0,
-        accumulator = 0.0,
-
-        state = null,
-        renderer = null;
-
-    var controller = null;
+        accumulator = 0.0;
 
     var STATUS = {
         RUNNING : 0,
@@ -46,25 +32,27 @@ var Loop = function(options) {
             options = defaultOptions;
         }
 
+        if(!options.clock){
+            options.clock = getAnimationFrame;
+        }
+
         status = STATUS.STOPPED;
     }
 
     /**
-     * Sets current state
-     * State needs update method
-     * @param newState
+     * Sets updateCallback
+     * @param newUpdateCallback
      */
-    this.setState = function(newState){
-        state = newState;
+    this.setUpdateCallback = function(newUpdateCallback){
+        options.updateCallback = newUpdateCallback;
     }
 
     /**
-     * Sets Renderer.
-     * Renderer needs render method
-     * @param newRenderer
+     * Sets Render Callback.
+     * @param newRenderCallback
      */
-    this.setRenderer = function(newRenderer){
-        renderer = newRenderer;
+    this.setRenderCallback = function(newRendererCallback){
+        options.rendererCallback = newRenderCallback;
     }
 
     /**
@@ -74,9 +62,6 @@ var Loop = function(options) {
         if(status == STATUS.STOPPED){
             currentTime = getCurrentTime();
             status = STATUS.RUNNING;
-            if(state){
-                state.init();
-            }
             if(callback){
                 callback();
             }
@@ -137,15 +122,6 @@ var Loop = function(options) {
 
 
     /**
-     * Set Controller
-     * controller needs "getInput" method;
-     * @param newController
-     */
-    this.setController = function(newController){
-        controller = newController;
-    }
-
-    /**
      * The Loop
      */
     var loop = function(){
@@ -166,20 +142,19 @@ var Loop = function(options) {
             accumulator += frameTime;
 
             while(accumulator >= options.deltaTime){
-                var input;
-                if(controller && typeof controller.getInput === 'function'){
-                    input = controller.getInput(options.deltaTime);
-                }
-
-                if(state  && typeof state.update === 'function'){
-                    state.update(options.deltaTime, input);
+                if(options.updateCallback){
+                    options.updateCallback(options.deltaTime);
                 }
                 time += options.deltaTime;
                 accumulator -= options.deltaTime;
             }
 
-            render();
-            window.requestAnimationFrame(loop);
+            if(options.renderCallback){
+                options.renderCallback();
+            }
+
+            options.clock(loop);
+
         }
     }
 
@@ -191,17 +166,21 @@ var Loop = function(options) {
         return date.getTime();
     }
 
+
     /**
-     * Render current State with provided renderer
+     * Default game clock. Uses requestAnimationFrame or ~60fps timeout
+     * @param callback
      */
-    var render = function(){
-        if(renderer != null
-            && typeof renderer.draw === 'function'
-            && state != null
-        ){
-            renderer.draw(state);
+    var getAnimationFrame = function(callback){
+        if(window.requestAnimationFrame){
+            window.requestAnimationFrame(callback);
+        } else if( window.webkitRequestAnimationFrame){
+            window.webkitRequestAnimationFrame(callback);
+        } else if (window.mozRequestAnimationFrame){
+            window.mozRequestAnimationFrame(callback);
+        } else {
+            window.setTimeout(callback, 1000 / 60);
         }
     }
-
     init();
 }
