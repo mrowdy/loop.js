@@ -55,51 +55,21 @@ Basic Usage Example
 
 ```javascript
 
-   // World object as state. Here is the game logic
-   // Examples: world, gameScreen, menuScreen, settingsScreen, etc.
-   var World = function(){
-        this.init = function(){
-            //called on loop.start()
-            //used to reset state
-        }
+    function gameUpdater(deltaTime){
+        //Code for game updates (game logic)
+    }
 
-        this.update = function(deltaTime){
-            // called every game update
-            // receives deltaTime
-        }
-   }
+    function gameRenderer(){
+         //Code for rendering
+    }
 
-   // Rendering is completely freed from game logic.
-   // Examples: render2D, render3D, renderHTML, renderWebGl, etc.
-   var Render2D = function(){
-        this.draw = function(state) {
-            // called every frame, use to draw your game
-            // receives actual state as param
-        }
-   }
+    // Create loop instance with options
+    var game = new Loop({
+        deltaTime: 0.05,
+        updateCallback: gameUpdater,
+        renderCallback: gameRenderer,
+    });
 
-   // Input handling is completely freed from game logic
-   // Examples: mouseController, touchController, keyboardController, gamepadController
-   var MouseControl = function(){
-        this.getInput(deltaTime){
-            // called every game update. use for input handling
-            // receives deltaTime
-        }
-   }
-
-   // Create loop instance with options
-   var game = new Loop({
-        deltaTime: 0.05
-   });
-
-   var world = new World();
-   var render2D = new Render2D();
-   var mControl = new MouseControl();
-
-   // add your modules to the loop instance
-   game.setState(world);
-   game.setRenderer(render2D);
-   game.setController(mControl);
 
    // log your fps to console
    loop.setFPSCallback(
@@ -109,8 +79,7 @@ Basic Usage Example
    );
 
    // start loop.
-   loop.start();
-
+   game.start();
 
 ```
 
