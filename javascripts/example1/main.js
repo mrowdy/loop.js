@@ -7,21 +7,21 @@
     var $canvas = $game.querySelector('canvas', $game);
     var $fps = $game.querySelector('.fps', $game);
 
-    var loop = new Loop();
+    var loop = new Loop({
+        updateCallback: gameUpdater,
+        renderCallback: gameRenderer
+    });
+
     var world = new World(320, 240);
     var circle = new Circle({'x': 160, 'y': 120}, 50);
     var renderer = new Renderer($canvas);
 
     world.setCircle(circle);
-    loop.setRenderer(renderer);
-    loop.setState(world);
-
 
     loop.setFPSCallback(function(fps){
         fps = fps.toFixed(2);
         $fps.innerHTML = fps;
     });
-
 
     $start.onclick = function(){
         loop.start(function(){
@@ -61,5 +61,13 @@
             $start.classList.remove('inactive');
             $resume.classList.add('inactive');
         });
+    }
+
+    function gameUpdater(deltaTime){
+        world.update(deltaTime);
+    }
+
+    function gameRenderer(){
+        renderer.draw(world);
     }
 })();
