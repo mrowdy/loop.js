@@ -13,7 +13,7 @@
         renderCallback: gameRenderer
     });
 
-    var world = new World(320, 240);
+    var world = new World(640, 240);
     var circle = new Circle({'x': 160, 'y': 120}, 50);
     var renderer = new Renderer($canvas);
     var controller = new Controller();

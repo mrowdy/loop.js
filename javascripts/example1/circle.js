@@ -2,6 +2,8 @@ var Circle = function(position, size) {
     var angle = 0,
         rotation = 20,
         speed = 10,
+        initSize,
+        sizeDirection = 3,
 
         velocity = {
             'x': 1,
@@ -15,6 +17,7 @@ var Circle = function(position, size) {
 
     var init = function(){
         angle = 0;
+        initSize = size;
         position.x = start.x;
         position.y = start.y;
     }
@@ -41,11 +44,31 @@ var Circle = function(position, size) {
             angle = angle - 360;
         }
 
-        if(position.x >= (320 - size) || position.x <= (0 + size)){
+        size += sizeDirection * deltaTime;
+        if(size > initSize + initSize / 2){
+            sizeDirection *= -1;
+        }
+        if(size < initSize - initSize / 2){
+            sizeDirection *= -1;
+        }
+
+        if(position.x >= (640 - size)){
+            position.x = 640 - size;
             velocity.x *= -1;
         }
 
-        if(position.y >= (240 - size) || position.y <= (0 + size)){
+        if(position.x <= (0 + size)){
+            position.x = 0 + size;
+            velocity.x *= -1;
+        }
+
+        if(position.y <= (0 + size)){
+            position.y = 0 + size;
+            velocity.y *= -1;
+        }
+
+        if(position.y >= (240 - size)){
+            position.y = 240 - size;
             velocity.y *= -1;
         }
 

@@ -41,7 +41,7 @@ var Circle = function(position, size) {
             angle = angle - 360;
         }
 
-        if(position.x >= (320 - size) || position.x <= (0 + size)){
+        if(position.x >= (640 - size) || position.x <= (0 + size)){
             velocity.x *= -1;
         }
 
