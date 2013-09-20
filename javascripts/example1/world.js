@@ -22,6 +22,7 @@ var World = function(width, height) {
 
     this.setCircle = function(newCircle){
         circle = newCircle;
+        circle.init();
     }
 
     this.getCircle = function(){

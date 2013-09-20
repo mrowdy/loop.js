@@ -14,7 +14,7 @@
     });
 
     var world = new World(640, 240);
-    var circle = new Circle({'x': 160, 'y': 120}, 50);
+    var circle = new Circle2({'x': 320, 'y': 120}, 50);
     var renderer = new Renderer($canvas);
     var controller = new Controller();
     var inputHandler = new InputHandler(controller);
@@ -59,6 +59,8 @@
     $stop.onclick = function(){
         loop.stop(function(){
             console.log('stopped');
+            circle = new Circle2({'x': 320, 'y': 120}, 50);
+            world.setCircle(circle);
             $stop.classList.add('inactive');
             $pause.classList.add('inactive');
             $start.classList.remove('inactive');

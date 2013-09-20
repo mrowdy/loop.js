@@ -12,8 +12,10 @@
         renderCallback: gameRenderer
     });
 
+
+    initWorld();
     var world = new World(640, 240);
-    var circle = new Circle({'x': 160, 'y': 120}, 50);
+    var circle = new Circle({'x': 320, 'y': 120}, 50);
     var renderer = new Renderer($canvas);
 
     world.setCircle(circle);
@@ -55,12 +57,19 @@
 
     $stop.onclick = function(){
         loop.stop(function(){
+
+            circle = new Circle({'x': 320, 'y': 120}, 50);
+            world.setCircle(circle);
             console.log('stopped');
             $stop.classList.add('inactive');
             $pause.classList.add('inactive');
             $start.classList.remove('inactive');
             $resume.classList.add('inactive');
         });
+    }
+
+    function initWorld(){
+
     }
 
     function gameUpdater(deltaTime){

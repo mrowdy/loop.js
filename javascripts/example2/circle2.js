@@ -1,4 +1,4 @@
-var Circle = function(position, size) {
+var Circle2 = function(position, size) {
     var angle = 0,
         rotation = 20,
         speed = 10,
