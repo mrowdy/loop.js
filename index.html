@@ -65,6 +65,22 @@
               </div>
           </div>
 
+          <div id="example3">
+              <h2>Basic Rotating triangle with WebGL</h2>
+              <div class="game">
+                  <div class="meta">
+                      Fps: <span class="fps">0</span>
+                  </div>
+                  <canvas width="320" height="320"></canvas>
+                  <div class="controls">
+                      <button class="start">Start</button>
+                      <button class="inactive pause">Pause</button>
+                      <button class="inactive resume">Resume</button>
+                      <button class="inactive stop">Stop</button><br>
+                  </div>
+              </div>
+          </div>
+
       </section>
     </div>
 
@@ -92,6 +108,23 @@
     <script type="text/javascript" src="javascripts/example2/controller.js"></script>
     <script type="text/javascript" src="javascripts/example2/input-handler.js"></script>
     <script type="text/javascript" src="javascripts/example2/main.js"></script>
+
+    <!-- example 2 -->
+    <script id="shader-fs" type="x-shader/x-fragment">
+        void main() {
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec4 a_Position;
+        uniform mat4 u_xFormMatrix;
+        void main() {
+        gl_Position = u_xFormMatrix * a_Position;
+        }
+    </script>
+    <script type="text/javascript" src="javascripts/example3/renderer.js"></script>
+    <script type="text/javascript" src="javascripts/example3/triangle.js"></script>
+    <script type="text/javascript" src="javascripts/example3/main.js"></script>
 
   </body>
 </html>
