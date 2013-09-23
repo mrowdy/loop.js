@@ -17,9 +17,7 @@ var Triangle = function(){
 
     this.update = function(deltaTime){
         angle += speed * deltaTime;
-        if(angle >= 360){
-            angle = 0;
-        }
+        angle %= 360;
     }
 
     init();
