@@ -84,3 +84,7 @@ Basic Usage Example
 ```
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Slemgrim/loop.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
